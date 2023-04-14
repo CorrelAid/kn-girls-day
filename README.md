@@ -1,1 +1,1 @@
-# kn-girls-day
+# Girls' Day Konstanz
