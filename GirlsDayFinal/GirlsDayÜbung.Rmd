@@ -1,0 +1,523 @@
+---
+title: "Girls' Day Workshop"
+author: "CorrelAid"
+date: "2023-04-27"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Hello, World!
+
+Wir beginnen mit zwei Begriffen, die du in jeder Programmiersprache findest: **Variablen** und **Funktionen**.
+
+## Variablen
+
+Eine **Variable** ist ein Name, den wir einem Wert zuweisen können. Du kannst zum Beispiel eine Variable mit dem Namen "Jahr" erstellen, die den Wert "2023" annimmt:
+
+```{r}
+jahr <- 2023
+jahr
+```
+
+Du kannst auch den Wert auf der rechten Seite des Pfeils und den Namen auf der linken Seite schreiben, wenn es dir lieber ist.
+
+```{r}
+2023 -> jahr
+jahr
+```
+
+Du kannst den Wert von deiner Variable jederzeit ändern.
+
+```{r}
+jahr <- 1999
+jahr
+```
+
+Du kannst Wörter und Phrasen auch in einer Variablen speichern. In diesem Fall musst du die Wörter in Anführungszeichen einschließen:
+
+```{r}
+monat <- "April"
+monat
+
+datum <- "Heute ist den 27. April, 2023"
+datum
+```
+
+Du kannst mehrere Werte in einer Variablen speichern. Dies nennt man einen **Vektor**.
+
+```{r}
+sommer <- c("Juli", "August", "September")
+sommer
+```
+
+Vorsicht: ein Vektor kann entweder Wörter oder Zahlen enthalten.
+
+```{r, eval=FALSE}
+falsch <- c("Juli", 18)
+```
+
+Du kannst jedoch Zahlen in Anführungszeichen setzen, sodass Du Wörter und Zahlen zusammen in einem Vektor speichern kannst.
+
+```{r}
+richtig <- c("Juli", "18")
+richtig
+```
+
+
+### Übung 1.1
+
+1. Speichere dein Alter in einer neuen Variable.
+
+```{r}
+
+```
+
+2. Speichere deinen Namen in einer neuen Variable.
+
+```{r}
+
+```
+
+3. Speichere deinen Namen und den Namen von deinem besten Freund/deiner besten Freundin in einer neuen Variable.
+
+```{r}
+
+```
+
+## Funktionen
+
+Eine **Funktion** ist ein Abschnitt von Code, der eine bestimmte Aufgabe erledigt. Du kannst zum Beispiel Zahlen mit der Funktion **sum()** addieren.
+
+```{r}
+sum(23, 45, 204)
+```
+
+Du kannst das Ergebnis einer Funktion in einer Variablen speichern.
+
+```{r}
+total <- sum(23, 45,  204)
+```
+
+Man kann auch eine Variable innerhalb einer Funktion verwenden.
+
+```{r}
+alt <- sum(jahr, 24)
+alt
+```
+
+Es gibt viele verschiedene Funktionen. Hier ist ein weiteres Beispiel.
+
+Mit der Funktion **paste()**, kannst du Wörter zu Sätzen und Texten zusammensetzen.
+
+```{r}
+paste("Hello, World!" , datum, ", und es ist Girls' Day!")
+```
+
+Wenn du paste() mit einem Vektor verwendest, werden mehrere Sätze erzeugt.
+
+```{r}
+paste("Mein Lieblingsmonat ist", sommer)
+```
+
+### Übung 1.2
+
+1. Addiere die Zahlen 25, 378, 87 und 63 mit der Funktion sum() und speichere das Ergebnis in einer Variablen namens sum1.
+
+```{r}
+
+```
+
+
+2. Du hast früher deinen Namen und dein Alter in zwei Variablen gespeichert. Verwende diese Variablen und die Funktion paste(), um den folgenden Satz zu schreiben:
+
+"Ich heiße X und ich bin Y Jahre alt."
+
+```{r}
+
+```
+
+# Datenbereinigung
+
+R ist sehr nützlich bei der Arbeit mit Tabellen. Du kannst Spalten und Zeilen erstellen, sie umbenennen, löschen, umorganisieren und vieles mehr. Dies wird **Datenbereinigung** genannt, weil du die Daten der Tabelle sauber und schön machst.
+
+## Paketen
+
+Wenn du Videospiele magst, lädst du vielleicht Skins oder Add-ons herunter, um mehr Waffen zu bekommen oder neue Welten zu entdecken. 
+
+Bei R ist es ähnlich. Du kannst neue Funktionen herunterladen, damit du mehr Dinge tun kannst. Funktionen kommen in Paketen.
+
+Für die Datenbereinigung benötigen wir die Pakete **tidyverse**, **lubridate**. Du kannst sie mit der Funktion **install.packages()** herunterladen.
+
+```{r, collapse=TRUE, echo=FALSE, eval=FALSE}
+install.packages("tidyverse")
+install.packages("lubridate")
+```
+
+Wenn du bereits ein Paket heruntergeladen hast, brauchst du install.packages() nicht mehr. Du kannst das Paket einfach mit der Funktion **library()** aufrufen.
+
+```{r, collapse=TRUE, echo=FALSE}
+library(tidyverse)
+library(lubridate)
+```
+
+## Datensatz
+
+Im Girls' Day-Ordner befindet sich eine .csv-Datei. Du kannst sie in R mit der Funktion **read_csv** öffnen.
+
+Du kannst die Datei als eine Variable speichern. 
+
+Oft werden solche Variablen "df" genannt, da eine Tabelle im Englischen als "dataframe" bezeichnet wird.
+
+```{r}
+df <- read_csv("Klasse8a8b.csv")
+```
+
+Mit der Funktion **head()** kann man die ersten Zeilen eines Datensatzes ansehen.
+
+```{r}
+head(df)
+```
+
+## Rename, Filter und Select
+
+Einige Spalten in unserem Datensatz haben Fehler in ihren Namen.
+
+Man kann Spalten mit der Funktion **rename()** von tidyverse umbenennen.
+
+
+**Vorsicht:** du musst den neuen Namen **vor** dem Gleichheitszeichnen und den alten Namen **danach** angeben.
+
+```{r}
+df1 <- rename(df, Name = Namme)
+head(df1)
+```
+
+### Übung 2.1
+
+1. Die Spalte "Klasse" wurde ebenfalls falsch benannt. Korrigiere den Fehler mit der Funktion **rename()**.
+
+```{r}
+df2 <- 
+  
+head(df2)
+```
+
+
+Eine weitere Tidyverse-Funktion ist die Funktion **select()**. Mit ihr kannst du auswählen, welche Spalten du behalten möchtest.
+
+```{r}
+df_g <- select(df2, Name, Geschlecht) 
+head(df_g)
+```
+
+
+Du kannst Zeilen mit der Funktion **filter()** löschen.
+
+Zum Beispiel kannst du alle Schüler der Klasse 8b aus dem Datensatz herausfiltern.
+
+```{r}
+df_8a <- filter(df2, Klasse == "8a")
+df_8a
+```
+
+### Übung 2.2
+
+1. Erstellt einen neuen Datensatz, der nur die **Namen** der Schüler und ihren **Geburtstag** enthält.
+
+```{r}
+df_jahr <- 
+head(df_jahr)
+```
+
+2. Erstellt einen neuen Datensatz, der nur **Schülerinnen** enthält.
+
+```{r}
+df_W <- 
+head(df_W)
+```
+
+## Mutate
+
+In unserem Datensatz haben die Geburtsdaten unterschiedliche Formate: 01.01.2009, 01.01.09, 01. Januar 2009...
+
+Wir möchten, dass alle Geburtstage das gleiche Format haben. Das kann man mit zwei Funktionen machen.
+
+
+Die erste Funktion, die wir brauchen, ist **mutate()**, eine Tidyverse Funktion. Damit kann man Spalten verändern. 
+
+Aber du musst R auch sagen, wie du die Daten ändern willst. Dafür brauchen wir eine zweite Funktion innerhalb von **mutate()**.  
+
+Um die Geburtstage zu formatieren, benötigen wir die Funktion **dmy()** aus dem Paket Lubridate. Die Funktion **dmy()** teilt R mit, dass unsere Daten keine Zahlen oder Wörter, sondern Datumsangaben sind.
+
+
+```{r}
+df3 <- mutate(df2, Geburtstag = dmy(Geburtstag))
+head(df3)
+```
+
+Mit **mutate()** kannst du auch neue Spalten erstellen. Wie zuvor müssen wir eine andere Funktion verwenden, um R mitzuteilen, was wir in unserer Spalte haben wollen.
+
+Wir können zum Beispiel eine neue Spalte erstellen, die nur das Geburtsjahr der Kinder enthält. Dazu verwenden wir **year()** aus lubridate.
+
+Die Funktion **jahr()** sucht in der Geburtstagsspalte und kopiert nur das Geburtsjahr. Die Funktion **mutate()** erstellt dann eine neue Spalte mit dem Namen "Jahr".
+
+```{r}
+df4 <- mutate(df3, Jahr = year(Geburtstag))
+head(df4)
+```
+
+### Übung 2.3
+
+Das Paket lubridate enthält eine **Tag()**-Funktion und eine **Monat()**-Funktion, die genauso funktionieren wie **Jahr()**.
+
+1. Kannst du eine neue Spalte mit dem Namen "Tag" erstellen, die die Geburtstage der Kinder enthält? 
+
+```{r}
+#Tag
+df5 <- 
+head(df5)
+```
+
+2. Erstelle auch eine Spalte "Monat" für die Geburtsmonate.
+
+```{r}
+#Monat
+df6 <- 
+head(df6)
+```
+
+**label = TRUE** bedeutet, dass wir "November" statt "11" haben wollen. 
+
+Du kannst versuchen, **TRUE** durch **FALSE** zu ersetzen, um den Unterschied zu sehen.
+
+## Pipeline
+
+In Tidyverse kannst du mehrere Funktionen nacheinander ausführen. Man gibt das Ergebnis jeder Funktion an die nächste weiter. Das macht den Code lesbarer und verständlicher.
+
+Dafür verwendet man die Pipe-Funktion **%>%**.
+
+```{r}
+df9 <- df6 %>% 
+  select(Name, Klasse) %>% 
+  filter(Klasse == "8a") 
+```
+
+### Übung 2.4
+
+1. Erstellt einen neuen Datensatz, der zwei Spalten enthält: Name und Geschlecht, **und** der nur Schülerinnen enthält. 
+
+```{r}
+df10 <- df6 %>% 
+  
+```
+
+
+# Visualisierungen
+
+Wie viele Kinder wurden 2008 geboren? Wie viele Geburtstage gibt es pro Monat in der Klasse 8b? Haben mehr Schülerinnen als Schüler im November Geburtstag? 
+
+Diese Fragen können wir mit Hilfe von Diagrammen beantworten.
+
+Dazu musst du das Paket **ggplot2** herunterladen. Wir haben bereits gesehen, wie man Pakete mit **install.packages()** installiert. Versuche es nochmal für **ggplot2**
+
+**Hinweis:** Vergiss die Anführungszeichnen nicht!
+
+```{r, collapse=TRUE, echo=FALSE, eval=FALSE}
+install.packages("ggplot2")
+```
+
+
+```{r, collapse=TRUE, echo=FALSE,}
+library(ggplot2)
+```
+
+## Balkendiagrammen
+
+Lass uns die folgende Frage beantworten: **"In welchem Jahr wurde die Mehrheit der Kinder geboren?"**
+
+**ggplot()** ist die wichtigste Funktion, wenn du ein Diagramm erstellen willst. Diese Funktion zeigt R, dass wir jetzt einen Diagramm bauen wollen.
+
+
+```{r}
+df6 %>% 
+  ggplot()
+```
+
+Das sieht ein bisschen leer aus. Wir haben ggplot nicht mitgeteilt, welcher Daten wir mit unserem Diagramm anzeigen wollen.
+
+Wir bauen zunächst die Struktur von unserem Diagramm. Dafür verwenden wir die Funktion **aes()**. Damit kannst du die X-Achse (und ggf. die Y-Achse) erstellen. 
+
+```{r}
+df6 %>% 
+  ggplot(aes(x = Jahr))
+```
+
+Jetzt müssen wir uns entscheiden, welche Art von Diagramm wir erstellen wollen. Es gibt viele verschiedene Arten von Diagrammen: Punktdiagramm, Liniendiagramm, Tortendiagramm...
+
+Heute werden wir über Balkendiagramme lernen, aber man kann alle Diagrammtypen mit ggplot erstellen.
+
+Die ggplot Funktion für Balkendiagramme heißt **geom_bar()**.
+
+**Vorsicht:** Wenn du ein Diagramm erstellst, muss du alle Funktionen mit einem + Zeichnen verbinden, damit R weiß, dass alles zusammengehört.
+
+```{r}
+df6 %>% 
+  ggplot(aes(x = Jahr)) + 
+  geom_bar()
+```
+
+Wir können nun unsere Frage beantworten: **"In welchem Jahr wurde die Mehrheit der Kinder geboren?"**
+
+Antwort: Die Mehrheit der Kinder wurde ____ geboren.
+
+### Übung 3.1
+
+1. Erstelle ein Balkendiagramm, das zeigt, wie viele Kinder pro **Monat** geboren wurden.
+
+```{r}
+df6 %>% 
+  
+```
+
+## Diagramme schön machen
+
+Mit ggplot kannst du deine Diagramme anpassen, damit sie nicht so grau aussehen.
+
+Du kannst die Balkenfarbe so ändern:
+
+```{r}
+df6 %>% 
+  ggplot(aes(x = Jahr)) +
+  geom_bar(fill = "lightblue")
+
+df6 %>% 
+  ggplot(aes(x = Jahr)) +
+  geom_bar(fill = "darkgreen")
+```
+
+Du kannst ihr auch einen Titel geben und die Achsenbeschriftung ändern.
+
+Dafür gibt es die Funktion **labs()**.
+
+```{r}
+df6 %>% 
+  ggplot(aes(x = Jahr)) +
+  geom_bar(fill = "darkgreen") +
+  labs(title = "Anzahl der Geburtstagen pro Jahr",
+       x = "Jahr",
+       y = "Anzahl von Geburtstagen")
+```
+
+### Übung 3.2
+
+1. Füge dem Diagramm aus der vorherigen Übung einen Titel und Achsenbeschriftungen hinzu und ändere seine Farbe.
+
+Du kannst alle Farbnamen hier finden: http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf
+
+```{r}
+df6 %>% 
+  
+```
+
+## Komplexe Balkendiagramme
+
+Nehmen wir an, wir wollen die **Geburtsjahre** nach **Geschlecht** vergleichen.
+
+Das kann man mit der Funktion **aes()** machen. 
+
+```{r}
+df6 %>% 
+  ggplot(aes(x = Jahr, fill = Geschlecht)) +
+  geom_bar()
+```
+
+Jetzt haben wir eine Legende auf der rechten Seite unseres Diagramms. 
+
+Aber unser Diagramm ist nicht sehr einfach zu lesen. Es wäre einfacher, wenn wir einen Balken pro Klasse hätten.
+
+Das kann man mit **geom_bar()** einrichten.
+
+```{r}
+df6 %>% 
+  ggplot(aes(x = Jahr, fill = Geschlecht)) +
+  geom_bar(position = position_dodge())
+```
+
+Wenn du ein Diagramm mit einer Legende erstellt, kannst du die Farben nicht mit geom_bar(fill = "farbe") ändern.
+
+Stattdessen nutzt man die Funktion **scale_fill_manual()**.
+
+```{r}
+df6 %>% 
+  ggplot(aes(x = Jahr, fill = Geschlecht)) +
+  geom_bar(position = position_dodge()) +
+  scale_fill_manual(values = c("seagreen2", "chocolate4"))
+```
+
+### Übung 3.3
+
+1. Erstelle ein Balkendiagramm mit einer Legende, um die folgende Frage zu beantworten: "Wie viele Geburtstage gibt es pro **Monat** und pro **Klasse**?"
+
+2. Füge dem Diagramm einen Titel und Achsenbeschriftungen hinzu und ändere seine Farben.
+
+```{r}
+df6 %>% 
+  
+```
+
+## Tidyverse und ggplot
+
+### Übung 3.4
+
+Deiner Meinung nach, wie kann man ein Balkendiagramm für die folgende Frage erstellen?
+
+"Wie viele Kinder der **Klasse 8b** wurden pro **Monat** und pro **Geschlecht** geborden?"
+
+**Hinweis:** Du musst deinen Datensatz mit einer Tidyverse Funktion bearbeiten, bevor du dein Diagramm erstellen kannst.
+
+```{r}
+df6 %>% 
+  
+```
+
+## Bonus: Streudiagramme
+
+Hier ist eine neue Art von Diagramm: das Streudiagramm. 
+
+1. Schau dir den folgenden Code an. Was sind die Unterschiede zu einem Balkendiagramm? Was ist das Gleiche?
+
+2. Führe den Code aus. Wie sieht das Diagramm aus? Wofür könntest du es verwenden?
+
+```{r}
+df6 %>% 
+  filter(Klasse == "8b") %>% 
+  
+  ggplot(aes(x = Monat, y = Tag, color = Geschlecht, label = Name)) +
+  geom_point() +
+  geom_text(vjust = -1)
+
+```
+
+3. Füge dem Diagramm einen Titel und Achsenbeschriftungen hinzu und ändere seine Farben.
+
+```{r}
+df6 %>% 
+  
+```
+
+4. Hab spaß! Welche Balken- und Streudiagramme kannst du mit unserem Datensatz erstellen?
+
+```{r,eval=FALSE}
+df6 %>% 
+```
+
+
+
+
+
+
+
+
